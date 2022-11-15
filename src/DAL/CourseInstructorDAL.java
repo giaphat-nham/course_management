@@ -22,15 +22,15 @@ public class CourseInstructorDAL {
     }
     
     public ArrayList<CourseInstructorDTO> list() throws Exception{
-        ResultSet result=this.connect.Select("courseinstructor");
-        ArrayList<CourseInstructorDTO> list=new ArrayList<CourseInstructorDTO>();
-        while(result.next()){
-            CourseInstructorDTO p=new CourseInstructorDTO();
-            p.setCourseID(result.getInt("CourseID"));
-            p.setPersonID(result.getInt("PersonID"));
-            list.add(p);
+        ResultSet result=this.connect.Select("courseinstructor");     				//S1
+        ArrayList<CourseInstructorDTO> list=new ArrayList<CourseInstructorDTO>();	//S2
+        while(result.next()){			//C1
+            CourseInstructorDTO p=new CourseInstructorDTO();	//S3
+            p.setCourseID(result.getInt("CourseID"));			//S4
+            p.setPersonID(result.getInt("PersonID"));			//S5
+            list.add(p);										//S6
         }
-        return list;
+        return list;											//S7
     }
     
     public void Insert(CourseInstructorDTO p) throws Exception{
