@@ -49,23 +49,23 @@ public class CourseInstructorBLL {
     }
     
     public ArrayList<CourseInstructorDTO> Search(String CourseID, String PersonID) {
-        ArrayList<CourseInstructorDTO> res=new ArrayList<CourseInstructorDTO>();
-        boolean course=false, person=false;
+        ArrayList<CourseInstructorDTO> res=new ArrayList<CourseInstructorDTO>(); 	//S1
+        boolean course=false, person=false;											//S2,S3
         
-        if(CourseID.equals(""))
-            course=true;
-        if(PersonID.equals(""))
-            person=true;
+        if(CourseID.equals(""))														//C1
+            course=true;															//S4
+        if(PersonID.equals(""))														//C2
+            person=true;															//S5
         
-        for(CourseInstructorDTO p: list){
-            if(!CourseID.equals(""))
-                course=(p.getCourseID()==Integer.parseInt(CourseID)) ? true : false;
-            if(!PersonID.equals(""))
-                person=(p.getPersonID()==Integer.parseInt(PersonID)) ? true : false;
-            if(course && person)
-                res.add(p);
+        for(CourseInstructorDTO p: list){												//C3
+            if(!CourseID.equals(""))													//C4
+                course=(p.getCourseID()==Integer.parseInt(CourseID)) ? true : false;	//C5,S6,S7
+            if(!PersonID.equals(""))													//C6
+                person=(p.getPersonID()==Integer.parseInt(PersonID)) ? true : false;	//C7,S8,S9
+            if(course && person)														//C8
+                res.add(p);																//S10
         }
-        return res;
+        return res;																		//S11
     }
     
     public void Remove(int CourseID, int PersonID) throws Exception {
