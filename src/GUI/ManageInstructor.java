@@ -343,23 +343,23 @@ public class ManageInstructor extends javax.swing.JFrame {
     }//GEN-LAST:event_btNewActionPerformed
 
     private boolean Validate() throws Exception {
-        String person, course;
-        course = txCourseID.getText();
-        person = txPersonID.getText();
+        String person, course;					//S1
+        course = txCourseID.getText();			//S2
+        person = txPersonID.getText();			//S3
 
-        if (person.equals("") || course.equals("")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-            return false;
+        if (person.equals("") || course.equals("")) {		//C1
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin","Chú ý!",JOptionPane.INFORMATION_MESSAGE);//S4
+            return false; //S5
         }
 
-        for (CourseInstructorDTO p : instructorbll.getList()) {
-            if (course.equals(String.valueOf(p.getCourseID()))
+        for (CourseInstructorDTO p : instructorbll.getList()) { //C2
+            if (course.equals(String.valueOf(p.getCourseID())) //C3
                     && person.equals(String.valueOf(p.getPersonID()))) {
-                JOptionPane.showMessageDialog(null, "Bộ dữ liệu đã tồn tại", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-                return false;
+                JOptionPane.showMessageDialog(null, "Bộ dữ liệu đã tồn tại","Chú ý!",JOptionPane.INFORMATION_MESSAGE); //S5
+                return false;//S6
             }
         }
-        return true;
+        return true;//S7
     }
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed

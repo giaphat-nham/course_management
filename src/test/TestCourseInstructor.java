@@ -32,17 +32,63 @@ public class TestCourseInstructor {
 		});
 		
 		if (list.isEmpty() && result.isEmpty()) {
-			test.out("list()", true, "Duong thi hanh 1");
+			test.out("list()", true, "Duong doc lap 1");
 		}
 		else if (!result.isEmpty() && !list.isEmpty() && equals(result,list)) {
-			test.out("list()", true, "Duong thi hanh 2");
+			test.out("list()", true, "Duong doc lap 2");
 		}
 		else {
 			if ((!list.isEmpty() && result.isEmpty()) ||
 					(list.isEmpty() && !result.isEmpty()))
-				test.out("list()", false, "Duong thi hanh 1");
+				test.out("list()", false, "Duong doc lap 1");
 			else if (!result.isEmpty() && !list.isEmpty() && !equals(result,list))
-				test.out("list()", false, "Duuong thi hanh 2");
+				test.out("list()", false, "Duong doc lap 2");
+		}
+	}
+	
+	private static void testValidate(ArrayList<CourseInstructorDTO> instructor, String course, String person) {
+		test.addTest();
+		boolean returnValue = true;
+		boolean isDuplicated = false;
+		int loop = 0;
+		
+		if (person.equals("") || course.equals("")) {
+			returnValue = false;
+		}
+		
+		for (CourseInstructorDTO p : instructor) {
+			if (course.equals(String.valueOf(p.getCourseID()))
+					&& person.equals(String.valueOf(p.getPersonID()))) {
+				returnValue = false;
+				isDuplicated = true;
+			}
+			loop++;
+		}
+		
+		if ((person.equals("") || course.equals("")) && returnValue == false) {
+			test.out("validate()", true, "Duong doc lap 1");
+		}
+		else if (!person.equals("") && !course.equals("") && instructor.isEmpty() && returnValue == true) {
+			test.out("validate()", true, "Duong doc lap 2");
+		}
+		else if (!person.equals("") && !course.equals("") && instructor.size()>1 && loop > 1 && isDuplicated == false) {
+			test.out("validate()", true, "Duong doc lap 3");
+		}
+		else if (!person.equals("") && !course.equals("") && isDuplicated == true && returnValue == false) {
+			test.out("validate()", true, "Duong doc lap 4");
+		}
+		
+		if ((person.equals("") || course.equals("")) && returnValue == true) {
+			test.out("validate()", false, "Duong doc lap 1");
+		}
+		else if (!person.equals("") && !course.equals("") && instructor.isEmpty() && returnValue == false) {
+			test.out("validate()", false, "Duong doc lap 2");
+		}
+		else if (!person.equals("") && !course.equals("") && instructor.size()>1 && loop <= 1 && isDuplicated == false) {
+			test.out("validate()", false, "Duong doc lap 3");
+		}
+		else if (!person.equals("") && !course.equals("") && isDuplicated == true && returnValue == true) {
+			test.out("validate()", false, "Duong doc lap 4");
 		}
 	}
 	
@@ -56,6 +102,11 @@ public class TestCourseInstructor {
 		//Goi test case
 		testList(list1);
 		testList(list2);
+		
+		testValidate(list2,"","");
+		testValidate(list1,"2","3");
+		testValidate(list2,"2","3");
+		testValidate(list2,"1","2");
 		
 		
 		//Tong ket
