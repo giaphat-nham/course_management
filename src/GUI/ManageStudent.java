@@ -391,40 +391,40 @@ public class ManageStudent extends javax.swing.JFrame {
     }
     
     private boolean Validate() throws Exception{
-        String id, lastname, firstname, endate;
-        id=txPersonID.getText();
-        lastname=txLastName.getText();
-        firstname=txFirstName.getText();
-        endate=txEnDate.getText();
+        String id, lastname, firstname, endate;     //S1
+        id=txPersonID.getText();        //S2
+        lastname=txLastName.getText();      //S3
+        firstname=txFirstName.getText();        //S4
+        endate=txEnDate.getText();      //S5
         
-        if(id.equals("") || lastname.equals("") || firstname.equals("") || endate.equals("")){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-            return false;
+        if(id.equals("") || lastname.equals("") || firstname.equals("") || endate.equals("")){      //C1
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);       //S6
+            return false;       //S7
         }
         
-        if(!id.matches("^\\d+")){
-            JOptionPane.showMessageDialog(null, "Mã học viên phải ở định dạng số", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-            return false;
+        if(!id.matches("^\\d+")){       //C2
+            JOptionPane.showMessageDialog(null, "Mã học viên phải ở định dạng số", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);       //S8
+            return false;       //S9
         }
         
-        if(!isEditing)
-            for(Integer p: personbll.getAllPersonID()){
-                if(id.equals(String.valueOf(p))){
-                    JOptionPane.showMessageDialog(null, "Mã đã tồn tại", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-                    return false;
+        if(!isEditing)      //C3
+            for(Integer p: personbll.getAllPersonID()){     //C4
+                if(id.equals(String.valueOf(p))){       //C5
+                    JOptionPane.showMessageDialog(null, "Mã đã tồn tại", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);       //S10
+                    return false;       //S11
                 }
         }
         
-        if(ValidateDate(endate)==1){
-            JOptionPane.showMessageDialog(null, "Ngày đăng ký phải ở định dạng số yyyy-mm-dd", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);
-            return false;
+        if(ValidateDate(endate)==1){        //C6
+            JOptionPane.showMessageDialog(null, "Ngày đăng ký phải ở định dạng số yyyy-mm-dd", "Chú ý!", JOptionPane.INFORMATION_MESSAGE);       //S12
+            return false;       //S13
         }
-        else if(ValidateDate(endate)==2) {
-            JOptionPane.showMessageDialog(null, "Ngày đăng ký không hợp lệ");
-            return false;
+        else if(ValidateDate(endate)==2) {      //C7
+            JOptionPane.showMessageDialog(null, "Ngày đăng ký không hợp lệ");       //S14
+            return false;       //S15
         }
         
-        return true;
+        return true;       //S16
     }
     
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed

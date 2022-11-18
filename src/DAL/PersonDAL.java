@@ -31,17 +31,17 @@ public class PersonDAL {
     }
     
     public ArrayList<PersonDTO> listStudent() throws Exception{
-        ResultSet result=this.connect.Select("person", "EnrollmentDate IS NOT NULL");
-        ArrayList<PersonDTO> list=new ArrayList<PersonDTO>();
-        while(result.next()){
-            PersonDTO p=new PersonDTO();
-            p.setPersonID(result.getInt("PersonID"));
-            p.setLastname(result.getString("LastName"));
-            p.setFirstname(result.getString("FirstName"));
-            p.setEnrollmentDate(result.getString("EnrollmentDate"));
-            list.add(p);
+        ResultSet result=this.connect.Select("person", "EnrollmentDate IS NOT NULL");       //S1
+        ArrayList<PersonDTO> list=new ArrayList<PersonDTO>();       //S2
+        while(result.next()){       //C1
+            PersonDTO p=new PersonDTO();        //S3
+            p.setPersonID(result.getInt("PersonID"));       //S4
+            p.setLastname(result.getString("LastName"));        //S5
+            p.setFirstname(result.getString("FirstName"));      //S6
+            p.setEnrollmentDate(result.getString("EnrollmentDate"));        //S7
+            list.add(p);        //S8
         }
-        return list;
+        return list;        //S9
     }
     
     public ArrayList<PersonDTO> listLecturer() throws Exception{
