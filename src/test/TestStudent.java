@@ -150,7 +150,7 @@ public class TestStudent {
             test.out("validate()", true, "Đường độc lập 3");
             passed = true;
         } else if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals("")) && id.matches("^\\d+")
-                && !isEditing && listStudent.isEmpty() && returnValue == true && isDuplicated == false && loop < 1) {
+                && !isEditing && listStudent.isEmpty() && returnValue == true && isDuplicated == false && loop <= 1) {
             test.out("validate()", true, "Đường độc lập 4");
             passed = true;
         } else if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals(""))
@@ -173,14 +173,14 @@ public class TestStudent {
 
         if (passed == false) {
             if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals("")) && id.matches("^\\d+")
-                    && isEditing && ValidateDate(endate) != 1 && ValidateDate(endate) != 2 && returnValue == true) {
+                    && isEditing && ValidateDate(endate) != 1 && ValidateDate(endate) != 2 && returnValue == false) {
                 test.out("validate()", false, "Đường độc lập 1");
             } else if (id.equals("") || lastname.equals("") || firstname.equals("") || endate.equals("") && returnValue == true) {
                 test.out("validate()", false, "Đường độc lập 2");
             } else if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals("")) && !id.matches("^\\d+") && returnValue == true) {
                 test.out("validate()", false, "Đường độc lập 3");
             } else if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals("")) && id.matches("^\\d+")
-                    && !isEditing && listStudent.isEmpty() && (returnValue == false || isDuplicated == true || loop >= 1)) {
+                    && !isEditing && listStudent.isEmpty() && (returnValue == false || isDuplicated == true || loop > 1)) {
                 test.out("validate()", false, "Đường độc lập 4");
             } else if ((!id.equals("") && !lastname.equals("") && !firstname.equals("") && !endate.equals(""))
                     && id.matches("^\\d+") && !isEditing && !listStudent.isEmpty() && (loop <= 1 || returnValue == false || isDuplicated == true)) {
