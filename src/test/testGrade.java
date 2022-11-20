@@ -60,11 +60,13 @@ public class testGrade {
         }
     }
 
-    private static void testValidate(ArrayList<StudentGradeDTO> listGrade, String id, String course, String student, String grade, boolean isEditing) {
+    private static void testValidate(ArrayList<StudentGradeDTO> listGrade, String id, String course, 
+            String student, String grade, boolean isEditing) {
         test.addTest();
         boolean returnValue = true;
         boolean isDuplicated = false;
         int loop = 0;
+        boolean passed = false;
 
         if (id.equals("") || student.equals("") || course.equals("") || grade.equals("")) {
             returnValue = false;
@@ -74,7 +76,7 @@ public class testGrade {
         }
         if (!isEditing) {
             for (StudentGradeDTO p : listGrade) {
-                if (id.equals(String.valueOf(p))) {
+                if (id.equals(String.valueOf(p.EnrollmentID))) {
                     returnValue = false;
                     isDuplicated = true;
                 }
@@ -84,58 +86,78 @@ public class testGrade {
 
         if ((id.equals("") || course.equals("") || student.equals("") || grade.equals("")) && returnValue == false) {
             test.out("validate()", true, "Duong doc lap 1");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) && !id.matches("^\\d+") && returnValue == false) {
+            passed = true;
+        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) 
+                && !id.matches("^\\d+") && returnValue == false) {
             test.out("validate()", true, "Duong doc lap 2");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) && id.matches("^\\d+") && isEditing && returnValue == true) {
+            passed = true;
+        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) 
+                && id.matches("^\\d+") && isEditing && returnValue == true) {
             test.out("validate()", true, "Duong doc lap 3");
+            passed = true;
         } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
                 && id.matches("^\\d+") && !isEditing && listGrade.isEmpty() && returnValue == true
-                && isDuplicated == false && loop < 1) {
-            test.out("validate()", true, "Duong doc lap 4");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
-                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && returnValue == true
-                && isDuplicated == false && loop > 1) {
-            test.out("validate()", true, "Duong doc lap 5");
-
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
-                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && returnValue == false
-                && isDuplicated == true && loop != 0) {
-            test.out("validate()", true, "Duong doc lap 6");
-        }
-        if ((id.equals("") || course.equals("") || student.equals("") || grade.equals("")) && returnValue == true) {
-            test.out("validate()", false, "Duong doc lap 1");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) && !id.matches("^\\d+") && returnValue == true) {
-            test.out("validate()", false, "Duong doc lap 2");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) && id.matches("^\\d+") && isEditing && returnValue == false) {
-            test.out("validate()", false, "Duong doc lap 3");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
-                && id.matches("^\\d+") && !isEditing && listGrade.isEmpty() && (returnValue == false
-                && isDuplicated == true && loop >= 1)) {
-            test.out("validate()", false, "Duong doc lap 4");
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
-                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && (returnValue == false
-                && isDuplicated == true && loop <= 1)) {
-            test.out("validate()", false, "Duong doc lap 5");
-
-        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
-                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && returnValue == true
                 && isDuplicated == false && loop <= 1) {
-            test.out("validate()", false, "Duong doc lap 6");
+            test.out("validate()", true, "Duong doc lap 4");
+            passed = true;
+        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
+                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && loop > 1
+                && returnValue == true && isDuplicated == false) {
+            test.out("validate()", true, "Duong doc lap 5");
+            passed = true;
+        } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
+                && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && loop > 1
+                && returnValue == false && isDuplicated == true) {
+            test.out("validate()", true, "Duong doc lap 6");
+            passed = true;
+        }
+        
+        if (passed == false) {
+            if ((id.equals("") || course.equals("") || student.equals("") || grade.equals("")) && returnValue == true) {
+                test.out("validate()", false, "Duong doc lap 1");
+            } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) 
+                    && !id.matches("^\\d+") && returnValue == true) {
+                test.out("validate()", false, "Duong doc lap 2");
+            } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals("")) 
+                    && id.matches("^\\d+") && isEditing && returnValue == false) {
+                test.out("validate()", false, "Duong doc lap 3");
+            } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
+                    && id.matches("^\\d+") && !isEditing && listGrade.isEmpty() && (returnValue == false
+                    || isDuplicated == true || loop > 1)) {
+                test.out("validate()", false, "Duong doc lap 4");
+            } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
+                    && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && (loop <= 1
+                    || returnValue == false || isDuplicated == true)) {
+                test.out("validate()", false, "Duong doc lap 5");
+            } else if ((!id.equals("") && !course.equals("") && !student.equals("") && !grade.equals(""))
+                    && id.matches("^\\d+") && !isEditing && !listGrade.isEmpty() && (loop <= 1
+                    || returnValue == true || isDuplicated == false)) {
+                test.out("validate()", false, "Duong doc lap 6");
+            }
         }
     }
 
     public static void main(String[] args) {
         ArrayList<StudentGradeDTO> list1 = new ArrayList<StudentGradeDTO>();
         ArrayList<StudentGradeDTO> list2 = new ArrayList<StudentGradeDTO>();
-        list1.add(new StudentGradeDTO(1, 1, 1, 10));
-        list2.add(new StudentGradeDTO(2, 2, 2, 9));
+        ArrayList<StudentGradeDTO> list3 = new ArrayList<StudentGradeDTO>();
+        ArrayList<StudentGradeDTO> list4 = new ArrayList<StudentGradeDTO>();
 
+        list1.add(new StudentGradeDTO(1, 1, 1, 10));
+        list1.add(new StudentGradeDTO(1, 5, 6, 7));
+
+        list2.add(new StudentGradeDTO(2, 2, 2, 9));
+        list2.add(new StudentGradeDTO(3, 4, 1, 8));
+
+        testListGrade(list3);
         testListGrade(list1);
-        testListGrade(list2);
+
         testValidate(list1, "", "", "", "", false);
-        testValidate(list2, "1", "2", "3", "4", true);
-        testValidate(list2, "2", "2", "2", "9", true);
         testValidate(list1, "asd", "asd", "asd", "asd", true);
+        testValidate(list2, "1", "2", "3", "4", true);
+        testValidate(list3, "3", "4", "5", "11", false);
+        testValidate(list2, "21", "22", "23", "1", false);
+        testValidate(list2, "2", "2", "2", "9", false);
 
         test.result();
 
